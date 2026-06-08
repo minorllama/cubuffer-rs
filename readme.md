@@ -33,8 +33,31 @@ Link into the rust binary built with with `cargo`, passing flags for linking aga
     RUSTFLAGS="-L native=. -l static=cubuffer -l dylib=cudart -l dylib=stdc++" cargo run 
 ```
 
+To use from rust source,
+```rust
+    // declare a buffer on cpu
+    let size:usize = 8;
+    let host_buffer_a:Vec<f32> = vec![1 as f32; size]; 
+    println!("{:?}", host_buffer_a);
+    
+    // declare a buffer on device
+    let mut buffer = CuBuffer::<f32>::new(size);
+    // copy from cpu
+    buffer.from_host(&host_buffer_a);
+    // call the kernel
+    unsafe { cuda_test_thread_id_f32(buffer.as_mut_ptr(), size); };
+
+    // copy back to a host buffer
+    let mut host_buffer_b:Vec<f32> = vec![0 as f32; size];
+    buffer.to_host(&mut host_buffer_b);
+    eprintln!("{:?}", host_buffer_b); 
+```
+
 Also see [kennel.cu](src/kernel.cu), [cubufferapi.rs](src/cubufferapi.rs) and the cargo build script [build.rs](build.rs). 
 
+## Non-trivial examples
+
+Upcoming 
 
     
 
