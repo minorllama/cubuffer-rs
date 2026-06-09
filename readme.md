@@ -57,7 +57,7 @@ To use from rust source,
     eprintln!("{:?}", host_buffer_b); 
 ```
 
-Also see [kennel.cu](src/kernel.cu), [cubufferapi.rs](src/cubufferapi.rs) and the cargo build script [build.rs](build.rs). 
+Also see [kernel.cu](src/kernel.cu), [cubufferapi.rs](src/cubufferapi.rs) and the cargo build script [build.rs](build.rs). 
 
 ## Non-trivial examples
 
