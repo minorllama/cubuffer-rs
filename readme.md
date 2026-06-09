@@ -20,8 +20,7 @@ Declare the unsafe `CUDA C` kernel. `unsafe { fn cuda_test_thread_id_f32(ptr: *m
     }
     ...
 ```
-
-Build a static library. 
+Warp that in a safe function: `pub fn cubuffer_test(buffer: &mut CuBuffer<f32>, size:usize){ unsafe { cuda_test_thread_id_f32(buffer.as_mut_ptr(), size); };}`. Build a static library. 
 ```bash
     nvcc -O3 -c src/kernel.cu -o kernel.o -Xcompiler -fPIC
     ar rcs libcubuffer.a kernel.o
