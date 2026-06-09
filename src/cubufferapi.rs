@@ -102,6 +102,10 @@ impl<T> Drop for CuBuffer<T>{
 }
 
 
+pub fn cubuffer_test(buffer: &mut CuBuffer<f32>, size:usize){
+    unsafe { cuda_test_thread_id_f32(buffer.as_mut_ptr(), size); };
+}
+
 pub fn cubuffer_f32_copy_test() {
     let size:usize = 8;
     let host_buffer_a:Vec<f32> = vec![1 as f32; size]; 
@@ -109,7 +113,8 @@ pub fn cubuffer_f32_copy_test() {
     
     let mut buffer = CuBuffer::<f32>::new(size);
     buffer.from_host(&host_buffer_a);
-    unsafe { cuda_test_thread_id_f32(buffer.as_mut_ptr(), size); };
+    //unsafe { cuda_test_thread_id_f32(buffer.as_mut_ptr(), size); };
+    cubuffer_test(&mut buffer, size);
 
     let mut host_buffer_b:Vec<f32> = vec![0 as f32; size];
     buffer.to_host(&mut host_buffer_b);

@@ -35,6 +35,10 @@ Link into the rust binary built with with `cargo`, passing flags for linking aga
 
 To use from rust source,
 ```rust
+    use cubuffer::cubufferapi::*;
+    
+    ...
+    
     // declare a buffer on cpu
     let size:usize = 8;
     let host_buffer_a:Vec<f32> = vec![1 as f32; size]; 
@@ -44,8 +48,9 @@ To use from rust source,
     let mut buffer = CuBuffer::<f32>::new(size);
     // copy from cpu
     buffer.from_host(&host_buffer_a);
+    
     // call the kernel
-    unsafe { cuda_test_thread_id_f32(buffer.as_mut_ptr(), size); };
+    cubuffer_test(&mut buffer, size);
 
     // copy back to a host buffer
     let mut host_buffer_b:Vec<f32> = vec![0 as f32; size];
@@ -58,6 +63,9 @@ Also see [kennel.cu](src/kernel.cu), [cubufferapi.rs](src/cubufferapi.rs) and th
 ## Non-trivial examples
 
 Upcoming 
+
+
+
 
     
 
