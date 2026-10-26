@@ -59,6 +59,14 @@ To use from rust source,
 
 Also see [kernel.cu](src/kernel.cu), [cubufferapi.rs](src/cubufferapi.rs) and the cargo build script [build.rs](build.rs). 
 
+To run a basic vector add example, try `./build.sh`: 
+```bash
+nvcc -O3 -c src/kernel.cu -o kernel.o -Xcompiler -fPIC # build the kernel with nvcc 
+ar rcs libcubuffer.a kernel.o # package the libcubiffer library
+RUSTFLAGS="-L native=. -l static=cubuffer -l dylib=cudart -l dylib=stdc++" cargo run # use from rust 
+```
+
+
 ## Non-trivial examples
 
 Upcoming 
